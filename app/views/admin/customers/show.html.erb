@@ -1,2 +1,53 @@
-<h1>Admin::Customers#show</h1>
-<p>Find me in app/views/admin/customers/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-4" style="background-color: #DCC2A1; margin-top: 40px;">
+      <h4 class="text-center"><strong><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</strong></h4>
+    </div>
+  </div>
+  <div class="d-flex align-items-center">
+    <table class="table table-borderless">
+      <tr>
+        <th style="border-top: Transparent;">会員ID</th>
+        <td style="border-top: Transparent;"><%= @customer.id %></td>
+      </tr>
+      <tr>
+        <th>氏名</th>
+        <td><%= @customer.full_name %></td>
+      </tr>
+      <tr>
+        <th>フリガナ</th>
+        <td><%= @customer.full_name_kana %></td>
+      </tr>
+      <tr>
+        <td>表示名</td>
+        <td><%= @customer.display_name %></td>
+      </tr>
+  			<tr>
+        <td>メールアドレス</td>
+        <td><%= @customer.email %></td>
+      </tr>
+      <tr>
+        <td>電話番号</td>
+        <td><%= @customer.telephone_number %></td>
+      </tr>
+      <tr>
+        <td>郵便番号</td>
+        <td><%= @customer.postal_code %></td>
+      </tr>
+      <tr>
+        <td>住所</td>
+        <td><%= @customer.address %></td>
+      </tr>
+      <tr>
+        <th>会員ステータス</th>
+        <td><%= @customer.customer_status %></td>
+      </tr>
+      <tr>
+        <th style="border-bottom: 1px solid Transparent;"></th>
+        <td style="border-bottom: 1px solid Transparent;">
+          <%= link_to "編集する", edit_admin_customer_path, class:"btn btn-success" %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

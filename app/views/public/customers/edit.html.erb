@@ -1,2 +1,52 @@
-<h1>Public::Customers#edit</h1>
-<p>Find me in app/views/public/customers/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h4 class="my-5 offset-1"><b>会員情報編集</b></h4>
+      <%= form_with model: @customer, url: customer_path, method: :patch do |f| %>
+        <table class="offset-2">
+          <tr>
+            <td>氏名</td>
+            <td><%= f.text_field :last_name %></td>
+            <td><%= f.text_field :first_name %></td>
+          </tr>
+          <th><br></th>
+          <tr>
+            <td>フリガナ</td>
+            <td><%= f.text_field :last_name_kana %></td>
+            <td><%= f.text_field :first_name_kana %></td>
+          </tr>
+          <th><br></th>
+          <tr>
+            <td>表示名</td>
+            <td><%= f.text_field :display_name %></td>
+          </tr>
+          <th><br></th>
+          <tr>
+            <td>電話番号</td>
+            <td><%= f.text_field :telephone_number %></td>
+          </tr>
+          <th><br></th>
+          <tr>
+            <td>メールアドレス</td>
+            <td><%= f.email_field :email %></td>
+          </tr>
+          <th><br></th>
+          <tr>
+            <td>郵便番号</td>
+            <td><%= f.text_field :postal_code %></td>
+          </tr>
+          <th><br></th>
+          <tr>
+            <td>住所</td>
+            <td><%= f.text_field :address, size: 35 %></td>
+          </tr>
+          <th><br></th>
+          <tr>
+            <td></td>
+            <td><%= f.submit "変更", class:"btn btn-success" %></td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
