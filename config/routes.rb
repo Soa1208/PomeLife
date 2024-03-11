@@ -25,9 +25,9 @@ Rails.application.routes.draw do
   scope module: :public do
     root 'homes#top'
     get 'homes/about' => 'homes/about', as: 'about'
-    get 'customers/mypage' => 'customers#show', as: 'mypage'
-    get 'customers/information/edit' => 'customers#edit', as: 'edit_information'
-    patch 'customers/information' => 'customers#update', as: 'update_information'
+    get 'customers/:id' =>'customers#show', as: 'customer'
+    get 'customers/:id/edit' => 'customers#edit', as: 'edit_customer'
+    patch 'customers/:id' => 'customers#update' 
     
     resources :pets, only: [:index, :create, :show, :edit, :update, :destroy]
     resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
