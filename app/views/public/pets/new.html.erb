@@ -1,12 +1,12 @@
 <div class="container" style="max-width: 50%;">
   <div class="row">
     <div class="col-4" style="background-color: #DCC2A1; margin-top: 40px;">
-      <h4 class="text-center"><strong>ペット情報編集</strong></h4>
+      <h4 class="text-center"><strong>ペット登録</strong></h4>
     </div>
   </div>
   
   <div class="card-body">
-    <%= form_with model: @pet, local: true, method: :patch do |f| %>
+    <%= form_with model: @pet, local: true do |f| %>
       <div class="row mb-3">
         <div class="col-md-3 col-form-label">ペットプロフィール画像</div>
         <div class="col-md-8" style="position: relative; left: -12px;">
@@ -24,7 +24,7 @@
       <div class="row mb-3">
         <div class="col-md-3 col-form-label">年齢</div>
         <div class="col-md-8">
-          <%= f.text_field :age, placeholder: "〇〇才", class: "form-control" %>
+          <%= f.text_field :age, placeholder: "〇〇才", class: "form-control", rows: 5 %>
         </div>
       </div>
   
@@ -60,6 +60,7 @@
         <div class="col-md-3 col-form-label">Mix犬の種類</div>
         <div class="col-md-8">
           <%= f.text_field :mix_breed_info, placeholder: "犬種を入力してください", class: "form-control" %>
+          <%= f.text_field :mix_breed_info, placeholder: "犬種を入力してください", class: "form-control" %>
         </div>
       </div>
         
@@ -72,7 +73,7 @@
   
       <div class="row">
         <div class="col-md-8 offset-md-4">
-          <%= f.submit '変更', class: "btn btn-success" %>
+          <%= f.submit '登録', class: "btn btn-success" %>
         </div>
       </div>
     <% end %>
