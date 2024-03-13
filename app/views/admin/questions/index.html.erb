@@ -1,2 +1,35 @@
-<h1>Admin::Questions#index</h1>
-<p>Find me in app/views/admin/questions/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-4" style="background-color: #DCC2A1; margin-top: 40px;">
+      <h4 class="text-center"><strong>相談一覧</strong></h4>
+    </div>
+  </div>
+  <table class="table" style="border-top: 1px solid #C3A78F">
+    <thead class="table" style="background-color: #DCC2A1;">
+      <tr>
+        <th>相談image</th>
+        <th>投稿者名</th>
+        <th>title</th>
+        <th>body</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @questions.each do |question| %>
+        <tr>
+          <td>
+            <% if question.image.attached? %>
+              <%= image_tag url_for(question.image), size: "100x100" %>
+            <% else %>
+              <p>No image attached</p>
+            <% end %>
+          </td>
+          <td><%= link_to question.title, admin_question_path(question), style: "color: black; text-decoration: underline;" %></td>
+          <td><%= question.body %></td>
+          <td><%= question.customer.full_name %></td>
+          <td><%= link_to "削除", admin_question_path(question), method: :delete, "data-confirm" => "本当に消しますか？" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

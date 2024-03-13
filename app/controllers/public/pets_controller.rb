@@ -25,7 +25,6 @@ class Public::PetsController < ApplicationController
   end
   
   def update
-    @pet = Pet.find(params[:id])
     if @pet.update(pet_params)
       redirect_to pet_path(@pet.id)
     else

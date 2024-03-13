@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
+  belongs_to :customer
   
-  has_one_attached :question_image
+  has_one_attached :image
 end
