@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
     end
     resources :questions do
-      resource :answers, only: [:create, :destroy]
+      resources :answers, only: [:create, :destroy]
     end
   end
   
