@@ -11,8 +11,8 @@
         <th>投稿者名</th>
         <th>title</th>
         <th>body</th>
+        <th>回答数</th>
         <th></th>
-
       </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
           <td><%= link_to question.title, question_path(question), style: "color: black; text-decoration: underline;" %></td>
           <td><%= question.body %></td>
           <td><%= question.customer.full_name %></td>
-          <td><%= link_to "削除", question_path(question), method: :delete, "data-confirm" => "本当に消しますか？" %></td>
+          <td><%= link_to "#{question.answers.count} 回答", question_path(question.id) %></td>
         </tr>
       <% end %>
     </tbody>
