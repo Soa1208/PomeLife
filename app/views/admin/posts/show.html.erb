@@ -1,2 +1,78 @@
-<h1>Admin::Posts#show</h1>
-<p>Find me in app/views/admin/posts/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-4 offset-4" style="background-color: #DCC2A1; margin-top: 40px;">
+      <h4 class="text-center"><strong>投稿詳細</strong></h4>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px;">
+
+    <div class="col-md-8">
+      <div class="card-body">
+        
+        <div class="col-md-4 mx-auto">
+          <% if @post.image.attached? %>
+            <%= image_tag url_for(@post.image), size: "300x300" %>
+          <% else %>
+            <p>No image attached</p>
+          <% end %>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <h4 class="card-title">投稿者</h4>
+          </div>
+          <div class="col-md-8">
+            <p class="card-text">
+              <% if @post.customer.image.attached? %>
+                <%= image_tag url_for(@post.customer.image), size: "80x80" %>
+              <% else %>
+                <p>No image</p>
+              <% end %>
+              <%= @post.customer.full_name %>
+            </p>
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <h4 class="card-title">ペット</h4>
+          </div>
+          <div class="col-md-8">
+            <p class="card-text">
+              <% if @post.pet.image.attached? %>
+                <%= image_tag url_for(@post.pet.image), size: "80x80" %>
+              <% else %>
+                <p>No image</p>
+              <% end %>
+              <%= @post.pet.name %>
+            </p>
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <h4 class="card-title">タイトル</h4>
+          </div>
+          <div class="col-md-8">
+            <p class="card-text"><%= @post.title %></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <h4 class="card-title">本文</h4>
+          </div>
+          <div class="col-md-8">
+            <p class="card-text"><%= @post.body %></p>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-2 text-center">
+            <%= link_to "削除", admin_post_path(@post), method: :delete, "data-confirm" => "本当に消しますか？" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

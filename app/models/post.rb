@@ -1,4 +1,9 @@
 class Post < ApplicationRecord
   
-  has_one_attached :post_image
+  belongs_to :customer
+  belongs_to :pet
+  
+  validates :customer_id, presence: true
+  
+  has_one_attached :image
 end

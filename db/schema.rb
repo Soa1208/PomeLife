@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(version: 2024_03_10_064156) do
   create_table "posts", force: :cascade do |t|
     t.integer "customer_id"
     t.integer "pet_id"
-    t.string "title", null: false
-    t.string "body", null: false
+    t.string "title"
+    t.string "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
