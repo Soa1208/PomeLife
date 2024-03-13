@@ -5,8 +5,9 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
   has_many :pets
+  has_many :posts
   
-  has_one_attached :customer_image
+  has_one_attached :image
   
   def customer_status
     if is_active == true

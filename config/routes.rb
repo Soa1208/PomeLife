@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     patch 'customers/:id' => 'customers#update' 
     resources :pets
     resources :posts do
+      post 'new', to: 'posts#create'
       resources :favorites, only: [:index, :create, :destroy]
       resource :comments, only: [:create, :destroy]
     end
