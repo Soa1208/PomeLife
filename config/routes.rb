@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :pets
     resources :posts do
       resources :favorites, only: [:index, :create, :destroy]
-      resource :comments, only: [:create, :destroy]
+      resources :comments, only: [:create, :destroy]
     end
     resources :questions do
       resource :answers, only: [:create, :destroy]
