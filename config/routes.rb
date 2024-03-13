@@ -7,12 +7,11 @@ Rails.application.routes.draw do
   
   namespace :admin do
     resources :customers, only: [:index, :show, :edit, :update]
-    resources :posts, except: [:destroy]
     resources :pets, only: [:index, :show, :edit, :update, :destroy]
     resources :posts, only: [:index, :show, :update, :destroy] do
       resources :comments, only: [:destroy]
     end
-    resources :questions, only: [:index, :show, :edit, :update] do
+    resources :questions, only: [:index, :show, :edit, :update, :destroy] do
       resources :answers, only: [:destroy]
     end
   end
@@ -30,7 +29,6 @@ Rails.application.routes.draw do
     patch 'customers/:id' => 'customers#update' 
     resources :pets
     resources :posts do
-      post 'new', to: 'posts#create'
       resources :favorites, only: [:index, :create, :destroy]
       resource :comments, only: [:create, :destroy]
     end

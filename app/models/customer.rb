@@ -6,6 +6,7 @@ class Customer < ApplicationRecord
          
   has_many :pets
   has_many :posts
+  has_many :question
   
   has_one_attached :image
   

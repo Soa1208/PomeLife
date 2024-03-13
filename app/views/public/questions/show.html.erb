@@ -1,2 +1,46 @@
-<h1>Public::Questions#show</h1>
-<p>Find me in app/views/public/questions/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-4 offset-4" style="background-color: #DCC2A1; margin-top: 40px;">
+      <h4 class="text-center"><strong>相談詳細</strong></h4>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px;">
+    <div class="col-md-4 mx-auto">
+      <% if @question.image.attached? %>
+        <%= image_tag url_for(@question.image), size: "100x100" %>
+      <% else %>
+        <p>No image attached</p>
+      <% end %>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <h4 class="card-title">相談名</h4>
+          </div>
+          <div class="col-md-8">
+            <p class="card-text"><%= @question.title %></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <h4 class="card-title">相談内容</h4>
+          </div>
+          <div class="col-md-8">
+            <p class="card-text"><%= @question.body %></p>
+          </div>
+        </div>
+   
+
+        <div class="row mt-3">
+          <div class="col-md-2 text-center">
+            <%= link_to "編集する", edit_question_path(@question), class: "btn btn-success" %>
+            <%= link_to "削除", question_path(@question), method: :delete, "data-confirm" => "本当に消しますか？" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
