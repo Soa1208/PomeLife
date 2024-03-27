@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  
+  root 'homes#top'
+  get 'homes/about' => 'homes/about', as: 'about'
+  get '/search', to: 'searches#search', as: 'search'
+  get 'tagsearch', to: 'tagsearches#tagsearch', as: 'tagsearch'
 
   devise_for :admin, controllers: {
     sessions: 'admin/sessions',
-    registrations: 'admin/registrations',
   }
   
   namespace :admin do
@@ -22,8 +26,6 @@ Rails.application.routes.draw do
   }
   
   scope module: :public do
-    root 'homes#top'
-    get 'homes/about' => 'homes/about', as: 'about'
     get 'customers/:id' =>'customers#show', as: 'customer'
     get 'customers/:id/edit' => 'customers#edit', as: 'edit_customer'
     patch 'customers/:id' => 'customers#update' 
@@ -43,7 +45,4 @@ Rails.application.routes.draw do
   devise_scope :customer do
     post "customers/guest_sign_in", to: "customers/sessions#guest_sign_in"
   end
-  
-  get '/search', to: 'searches#search', as: 'search'
-  get 'tagsearch', to: 'tagsearches#tagsearch', as: 'tagsearch'
 end

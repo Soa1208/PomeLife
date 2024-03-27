@@ -62,13 +62,13 @@ class Customer < ApplicationRecord
     find_or_create_by!(email: GUEST_CUSTOMER_EMAIL) do |customer|
       customer.password = SecureRandom.urlsafe_base64
       customer.display_name = "ゲスト"
+      customer.last_name = "ゲスト"
       customer.first_name = "ゲスト"
-      customer.last_name = ""
-      customer.first_name_kana = ""
-      customer.last_name_kana = ""
-      customer.postal_code = ""
-      customer.address = ""
-      customer.telephone_number = ""
+      customer.last_name_kana = "ゲスト"
+      customer.first_name_kana = "ゲスト"
+      customer.postal_code = "1110000"
+      customer.address = "東京都"
+      customer.telephone_number = "00011112222"
     end
   end
   

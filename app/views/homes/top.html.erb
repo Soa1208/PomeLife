@@ -1,0 +1,21 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <div class="row mt-2">
+        <h4>ようこそ、PomeLifeへ！</h4>
+      </div>
+      <div class="row mt-2">
+        <%= link_to "ゲストログイン（閲覧用）", customers_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+      </div>
+      <div class="row mt-2">
+        <%= link_to 'Log in', new_customer_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
+      </div>
+      <div class="row mt-2">
+        <%= link_to 'Sign Up', new_customer_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
+      </div>
+    </div>
+    <div class="col">
+      <%= image_tag('top-pom.png', size: "400x400") %>
+    </div>
+  </div>
+</div>

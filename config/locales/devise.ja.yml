@@ -3,4 +3,5 @@ ja:
     sessions:
       customer:
         signed_in: 'ログインしました。'
-      signed_in: '正常にサインインしました。'
+    registrations:
+      signed_up: "登録が完了しました。"
