@@ -1,47 +1,42 @@
-<div class="container" style="max-width: 50%;">
+<div class="container">
   <div class="row">
-    <div class="col-4" style="background-color: #DCC2A1; margin-top: 40px;">
-      <h4 class="text-center"><strong>新規投稿</strong></h4>
+    <h4>新規投稿</h4>
+  </div>
+  <%= form_with model: Post.new, local: true do |f| %>
+    <div class="row mb-3">
+      <div class="col-md-3">投稿画像</div>
+      <div class="col-md-6">
+        <%= f.file_field :post_image, accept: "image/*" %>
+      </div>
     </div>
-  </div>
-  
-  <div class="card-body">
-    <%= form_with model: Post.new, local: true do |f| %>
-      <div class="row mb-3">
-        <div class="col-md-3 col-form-label">投稿画像</div>
-        <div class="col-md-8" style="position: relative; left: -12px;">
-          <%= f.file_field :image, accept: "image/*", class: "form-control border-0", style: "background-color: #FFEBCD;"%>
-        </div>
-      </div>
 
-      <div class="row mb-3">
-        <div class="col-md-3 col-form-label">ペット選択</div>
-        <div class="col-md-8">
-         <%= f.collection_select :pet_id, current_customer.pets, :id, :name, prompt: "--選択してください--", class: "form-control" %>
-        </div>
+    <div class="row mb-3">
+      <div class="col-md-3 col-form-label">ペット選択</div>
+      <div class="col-md-6">
+        <%= f.collection_select :pet_id, current_customer.pets, :id, :name, prompt: "--選択してください--", class: "form-control" %>
       </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-3 col-form-label">title</div>
-        <div class="col-md-8">
-          <%= f.text_field :title, placeholder: "title", class: "form-control" %>
-        </div>
+    </div>
+    
+    <div class="row mb-3">
+      <div class="col-md-3 col-form-label">投稿タイトル</div>
+      <div class="col-md-6">
+        <%= f.text_field :title, placeholder: "タイトルを入力してください。", class: "form-control" %>
       </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-3 col-form-label">body</div>
-        <div class="col-md-8">
-          <%= f.text_area :body, placeholder: "body", class: "form-control", rows: 5 %>
-        </div>
+    </div>
+    
+    <div class="row mb-3">
+      <div class="col-md-3 col-form-label">投稿内容</div>
+      <div class="col-md-6">
+        <%= f.text_area :content, placeholder: "内容を入力してください。", class: "form-control", rows: 5 %>
       </div>
-      
-      <%= f.hidden_field :customer_id, value: current_customer.id %>
-
-      <div class="row">
-        <div class="col-md-8 offset-md-4">
-          <%= f.submit '登録', class: "btn btn-success" %>
-        </div>
+    </div>
+    
+    <%= f.hidden_field :customer_id, value: current_customer.id %>
+          
+    <div class="row">
+      <div class="col-md-8 offset-md-3">
+        <%= f.submit '投稿する', class: "btn btn-brown" %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

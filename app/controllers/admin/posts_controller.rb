@@ -24,6 +24,6 @@ class Admin::PostsController < ApplicationController
   end
   
   def post_params
-    params.require(:post).permit(:customer_id, :pet_id, :title, :body, :image)
+    params.require(:post).permit(:customer_id, :pet_id, :title, :body, :post_image)
   end
 end

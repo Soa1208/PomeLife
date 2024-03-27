@@ -1,52 +1,85 @@
 <div class="container">
   <div class="row">
-    <div class="col">
-      <h4 class="my-5 offset-1"><b>会員情報編集</b></h4>
-      <%= form_with model: @customer, url: customer_path, method: :patch do |f| %>
-        <table class="offset-2">
-          <tr>
-            <td>氏名</td>
-            <td><%= f.text_field :last_name %></td>
-            <td><%= f.text_field :first_name %></td>
-          </tr>
-          <th><br></th>
-          <tr>
-            <td>フリガナ</td>
-            <td><%= f.text_field :last_name_kana %></td>
-            <td><%= f.text_field :first_name_kana %></td>
-          </tr>
-          <th><br></th>
-          <tr>
-            <td>表示名</td>
-            <td><%= f.text_field :display_name %></td>
-          </tr>
-          <th><br></th>
-          <tr>
-            <td>電話番号</td>
-            <td><%= f.text_field :telephone_number %></td>
-          </tr>
-          <th><br></th>
-          <tr>
-            <td>メールアドレス</td>
-            <td><%= f.email_field :email %></td>
-          </tr>
-          <th><br></th>
-          <tr>
-            <td>郵便番号</td>
-            <td><%= f.text_field :postal_code %></td>
-          </tr>
-          <th><br></th>
-          <tr>
-            <td>住所</td>
-            <td><%= f.text_field :address, size: 35 %></td>
-          </tr>
-          <th><br></th>
-          <tr>
-            <td></td>
-            <td><%= f.submit "変更", class:"btn btn-success" %></td>
-          </tr>
-        </table>
-      <% end %>
-    </div>
+    <h4>プロフィール編集</h4>
+  </div>
+  <div class="row-12">
+    <%= form_with model: @customer, url: customer_path, method: :patch do |f| %>
+      <div class="row mb-3">
+        <%= f.label :last_name, "名前 (姓)", class: "col-sm-4 col-md-2 form-label" %>
+        <div class="col-sm-8 col-md-4">
+          <%= f.text_field :last_name, autofocus: true, placeholder: "田中", class: "form-control" %>
+        </div>
+        <%= f.label :first_name, "名前 (名)", class: "col-sm-4 col-md-2 form-label" %>
+        <div class="col-sm-8 col-md-4">
+          <%= f.text_field :first_name, placeholder: "太郎", class: "form-control" %>
+        </div>
+      </div>
+      
+      <div class="row mb-3">
+        <%= f.label :last_kana_name, "名前 (セイ)", class: "col-sm-4 col-md-2 form-label" %>
+        <div class="col-sm-8 col-md-4">
+          <%= f.text_field :last_kana_name, autofocus: true, placeholder: "タナカ", class: "form-control" %>
+        </div>
+        <%= f.label :first_kana_name, "名前 (メイ)", class: "col-sm-4 col-md-2 form-label" %>
+        <div class="col-sm-8 col-md-4">
+          <%= f.text_field :first_kana_name, placeholder: "タロウ", class: "form-control" %>
+        </div>
+      </div>
+  
+      <div class="mb-3 row">
+        <%= f.label :email, "メールアドレス", class: "col-sm-4 col-form-label" %>
+        <div class="col-sm-8">
+          <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+        </div>
+      </div>
+  
+      <div class="mb-3 row">
+        <%= f.label :postal_code, "郵便番号(ハイフンなし7桁)", class: "col-sm-4 col-form-label" %>
+        <div class="col-sm-8">
+          <%= f.text_field :postal_code, placeholder: "5420076", class: "form-control" %>
+        </div>
+      </div>
+  
+      <div class="mb-3 row">
+        <%= f.label :address, "住所(郵便番号から自動入力)", class: "col-sm-4 col-form-label" %>
+        <div class="col-sm-8">
+          <%= f.text_field :address, class: "form-control" %>
+        </div>
+      </div>
+  
+      <div class="mb-3 row">
+        <%= f.label :telephone_number, "電話番号(ハイフンなし10or11桁)", class: "col-sm-4 col-form-label" %>
+        <div class="col-sm-8">
+          <%= f.text_field :telephone_number, placeholder: "00011112222", class: "form-control" %>
+        </div>
+      </div>
+      
+      <div class="mb-3 row">
+        <%= f.label :profile_image, "プロフィール画像", class: "col-sm-4 col-form-label" %>
+        <div class="col-sm-8">
+          <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+        </div>
+      </div>
+      
+      <div class="mb-3 row">
+        <%= f.label :display_name, "表示名", class: "col-sm-4 col-form-label" %>
+        <div class="col-sm-8">
+          <%= f.text_field :display_name, placeholder: "上限8文字", class: "form-control" %>
+        </div>
+      </div>
+      
+      <div class="mb-3 row">
+        <%= f.label :introduction, "自己紹介", class: "col-sm-4 col-form-label" %>
+        <div class="col-sm-8">
+          <%= f.text_area :introduction, class: 'form-control',size: "60x5" %>
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col-12">
+          <%= f.submit "変更を保存", class: "btn btn-brown" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

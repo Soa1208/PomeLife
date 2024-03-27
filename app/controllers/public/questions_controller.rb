@@ -1,5 +1,5 @@
 class Public::QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :resolve]
   
   def new
     @question = Question.new
@@ -38,6 +38,14 @@ class Public::QuestionsController < ApplicationController
     redirect_to questions_path(@question.id), notice: '投稿が削除されました。'
   end
   
+  def resolve
+    if @question.update(is_active: true)
+      redirect_to @question, notice: '質問が解決済みとしてマークされました。'
+    else
+      redirect_to @question, alert: '質問を解決済みにすることができませんでした。'
+    end
+  end
+  
   private
   
   def set_question
@@ -45,6 +53,6 @@ class Public::QuestionsController < ApplicationController
   end
   
   def question_params
-    params.require(:question).permit(:customer_id, :title, :body, :image)
+    params.require(:question).permit(:customer_id, :title, :content, :is_active, :question_image, :category)
   end
 end

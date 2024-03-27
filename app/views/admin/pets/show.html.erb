@@ -1,83 +1,49 @@
 <div class="container">
+  <%= notice %>
+  <%= alert %>
   <div class="row">
-    <div class="col-4 offset-4" style="background-color: #DCC2A1; margin-top: 40px;">
-      <h4 class="text-center"><strong>ペット詳細</strong></h4>
+    <h4>
+      <div class="list-name">
+        <% if @pet.gender_i18n == "男の子" %>
+          <%= link_to @pet.name, admin_pet_path(@pet), style: "color: #654321;" %>くんのプロフィール
+        <% else %>
+          <%= link_to @pet.name, admin_pet_path(@pet), style: "color: #A52A2A;" %>ちゃんのプロフィール
+        <% end %>
+      </div>
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-3 mb-2">
+      <%= link_to "削除", admin_pet_path(@pet), class: "btn btn-danger", method: :delete, "data-confirm" => "このポメラニアンを削除しますか？" %>
+    </div>
+    <div class="col-3 mb-2">
+      <%= link_to "編集する", edit_admin_pet_path(@pet), class: "btn btn-brown" %>
     </div>
   </div>
-  <div class="row" style="margin-top: 20px;">
-    <div class="col-md-4 mx-auto">
-      <% if @pet.image.attached? %>
-        <%= image_tag url_for(@pet.image), size: "100x100" %>
-      <% else %>
-        <p>No image attached</p>
-      <% end %>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">ID</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.id %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">名前</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.name %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">年齢</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.age %>歳</div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">性別</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.gender_i18n %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">プロフィール画像</div>
+    <div class="col-8 col-sm-8 admin-list-content">
+      <%= image_tag url_for(@pet.pet_image.variant(resize_to_fill: [150, 150])), size: "150x150", class: 'rounded-circle' %>
     </div>
-
-    <div class="col-md-8">
-      <div class="card-body">
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">名前</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.name %></p>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">紹介文</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.introduction %></p>
-          </div>
-        </div>
-   
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">年齢</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.age %></p>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">性別</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.gender_i18n %></p>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">血統</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.breed_type_i18n %></p>
-          </div>
-        </div>
-
-        <% if @pet.breed_type == "mixed_breed" %>
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <h4 class="card-title">血種</h4>
-            </div>
-            <div class="col-md-8">
-              <% debug @pet.mix_breed_info %>
-              <p class="card-text"><%= @pet.mix_breed_info %></p>
-            </div>
-          </div>
-        <% end %>
-
-        <div class="row mt-3">
-          <div class="col-md-2 text-center">
-            <%= link_to "編集する", edit_pet_path(@pet), class: "btn btn-success" %>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">自己紹介</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.introduction %></div>
   </div>
 </div>

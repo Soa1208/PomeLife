@@ -1,46 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-4" style="background-color: #DCC2A1; margin-top: 40px;">
-      <h4 class="text-center"><strong>投稿一覧</strong></h4>
-    </div>
+    <h4>投稿一覧</h4>
   </div>
-  <table class="table" style="border-top: 1px solid #C3A78F">
-    <thead class="table" style="background-color: #DCC2A1;">
-      <tr>
-        <th>投稿image</th>
-        <th>ペットimage</th>
-        <th>title</th>
-        <th>body</th>
-        <th>投稿者名</th>
-        <th>コメント数</th>
-        <th></th>
-
-      </tr>
-    </thead>
-    <tbody>
-      <% @posts.each do |post| %>
-        <tr>
-          <td>
-            <% if post.image.attached? %>
-              <%= image_tag url_for(post.image), size: "100x100" %>
-            <% else %>
-              <p>No image attached</p>
-            <% end %>
-          </td>
-          <td>
-            <% if post.pet.image.attached? %>
-              <%= image_tag url_for(post.pet.image), size: "100x100" %>
-            <% else %>
-              <p>No image attached for pet</p>
-            <% end %>
-          </td>
-          <td><%= link_to post.title, admin_post_path(post), style: "color: black; text-decoration: underline;" %></td>
-          <td><%= post.body %></td>
-          <td><%= post.customer.full_name %></td>
-          <td><%= link_to "#{post.comments.count} コメント", admin_post_path(post.id) %></td>
-          <td><%= link_to "削除", admin_post_path(post), method: :delete, "data-confirm" => "本当に消しますか？" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'index', posts: @posts %>
 </div>

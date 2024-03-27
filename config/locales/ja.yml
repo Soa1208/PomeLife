@@ -2,8 +2,8 @@ ja:
   enums:
     pet:
       gender:
-        male: "オス"
-        female: "メス"
+        male: "男の子"
+        female: "女の子"
       breed_type:
         purebred: "純血"
         mixed_breed: "ミックス"

@@ -1,0 +1,8 @@
+<%= form_with url: search_path, method: :get, local: true do |f| %>
+  <%= f.text_field :content %>
+  <% options = { "投稿" => "post", "相談" => "question", "ポメラニアン" => "pet" } %>
+  <% options["ユーザー"] = "customer" if admin_signed_in? %>
+  <%= f.select :model, options_for_select(options) %>
+  <%= f.hidden_field :method, value: "partial" %>
+  <%= f.submit '検索' %>
+<% end %>

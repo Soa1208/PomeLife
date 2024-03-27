@@ -1,5 +1,5 @@
 class Public::PetsController < ApplicationController
-  before_action :set_pet, only: [:show, :edit, :update]
+  before_action :set_pet, only: [:show, :edit, :update, :destroy]
   
   def new
     @pet = Pet.new
@@ -19,6 +19,7 @@ class Public::PetsController < ApplicationController
   end
 
   def show
+    @posts = @pet.posts
   end
 
   def edit
@@ -33,7 +34,8 @@ class Public::PetsController < ApplicationController
   end
     
   def destroy
-    
+    @pet.destroy
+    redirect_to pets_path
   end
   
   private
@@ -42,6 +44,6 @@ class Public::PetsController < ApplicationController
   end
   
   def pet_params
-    params.require(:pet).permit(:customer_id, :name, :breed_type, :mix_breed_info, :gender, :age, :introduction, :image)
+    params.require(:pet).permit(:customer_id, :name, :breed_type, :mix_breed_info1, :mix_breed_info2, :gender, :birthday, :introduction, :pet_image)
   end
 end

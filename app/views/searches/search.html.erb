@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <% if @model == 'customer' %>
+    	<h4>ユーザー　"<%= @content %>"の検索結果</h4>
+    	<div class="col-6 title-beside">
+    	  <% if customer_signed_in? %>
+          <%= link_to "登録する", new_pet_path, class: "btn btn-brown btn-sm" %>
+        <% end %>
+      </div>
+    <% elsif @model == 'pet' %>
+    	<h4>ポメラニアン　"<%= @content %>"の検索結果</h4>
+    	<div class="col-6 title-beside">
+    	  <% if customer_signed_in? %>
+          <%= link_to "登録する", new_pet_path, class: "btn btn-brown btn-sm" %>
+        <% end %>
+      </div>
+    <% elsif @model == 'post' %>
+      <h4>投稿　"<%= @content %>"の検索結果</h4>
+      <div class="col-6 title-beside">
+        <% if customer_signed_in? %>
+          <%= link_to "投稿する", new_post_path, class: "btn btn-brown btn-sm" %>
+        <% end %>
+      </div>
+    <% elsif @model == 'question' %>
+    	<h4>相談　"<%= @content %>"の検索結果</h4>
+    	<div class="col-lg-3 col-md-2 col-sm-5 col-4 title-beside">
+    	  <% if customer_signed_in? %>
+          <%= link_to "相談する", new_question_path, class: "btn btn-brown btn-sm" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <% if admin_signed_in? %>
+      <% if @model == 'customer' %>
+        <%= render 'admin/customers/index', pets: @pets %>
+      <% elsif @model == 'pet' %>
+        <%= render 'admin/pets/index', pets: @pets %>
+      <% elsif @model == 'post' %>
+        <%= render 'admin/posts/index', posts: @posts %>
+      <% elsif @model == 'question' %>
+        <%= render 'admin/questions/index', questions: @questions %>
+      <% end %>
+    <% elsif customer_signed_in? %>
+      <% if @model == 'pet' %>
+        <%= render 'public/pets/index', pets: @pets %>
+      <% elsif @model == 'post' %>
+        <%= render 'public/posts/index', posts: @posts %>
+      <% elsif @model == 'question' %>
+        <%= render 'public/questions/index', questions: @questions %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

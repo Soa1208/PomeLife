@@ -1,4 +1,6 @@
 ja:
   devise:
-    registrations:
-      signed_up: "会員登録が完了しました。"
+    sessions:
+      customer:
+        signed_in: 'ログインしました。'
+      signed_in: '正常にサインインしました。'

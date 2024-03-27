@@ -1,78 +1,71 @@
-<div class="container" style="max-width: 50%;">
+<div class="container">
   <div class="row">
-    <div class="col-4" style="background-color: #DCC2A1; margin-top: 40px;">
-      <h4 class="text-center"><strong>ペット情報編集</strong></h4>
-    </div>
+    <h4>
+      <div class="list-name">
+        <% if @pet.gender_i18n == "男の子" %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #654321;" %>くんのプロフィール編集
+        <% else %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #A52A2A;" %>ちゃんのプロフィール編集
+        <% end %>
+      </div>
+    </h4>
   </div>
   
   <div class="card-body">
     <%= form_with model: @pet, local: true, method: :patch do |f| %>
       <div class="row mb-3">
-        <div class="col-md-3 col-form-label">ペットプロフィール画像</div>
-        <div class="col-md-8" style="position: relative; left: -12px;">
-          <%= f.file_field :image, accept: "image/*", class: "form-control border-0", style: "background-color: #FFEBCD;"%>
+        <div class="col-md-2">ペット画像</div>
+        <div class="col-md-6">
+          <%= f.file_field :pet_image, accept: "image/*" %>
         </div>
       </div>
   
       <div class="row mb-3">
-        <div class="col-md-3 col-form-label">名前</div>
-        <div class="col-md-8">
-          <%= f.text_field :name, placeholder: "名前", class: "form-control" %>
+        <div class="col-md-2 col-form-label">名前</div>
+        <div class="col-md-6">
+          <%= f.text_field :name, placeholder: "最大10文字", class: "form-control" %>
         </div>
       </div>
   
       <div class="row mb-3">
-        <div class="col-md-3 col-form-label">年齢</div>
-        <div class="col-md-8">
-          <%= f.text_field :age, placeholder: "〇〇才", class: "form-control" %>
+        <div class="col-md-2">生年月日</div>
+        <div class="col-md-6">
+          <%= f.date_select :birthday,
+              { start_year: 2000,
+                end_year: Time.current.year,
+                use_two_digit_numbers: true,
+                order: [:year, :month, :day],
+                default: 5.years.ago.to_date },
+              { include_blank: true,
+                prompt: { day: '日', month: '月', year: '年' },
+                class: "input-tab birthday-select" } %>
         </div>
       </div>
   
       <div class="row mb-3">
-        <div class="col-md-3 col-form-label">性別</div>
-        <div class="col-md-8">
+        <div class="col-md-2 col-form-label">性別</div>
+        <div class="col-md-6">
           <div class="form-check form-check-inline">
             <%= f.radio_button :gender, "male", id: "male", class: "form-check-input", checked: true %>
-            <label class="form-check-label" for="male" style="color: black;">男の子</label>
+            <label class="form-check-label" for="male">男の子</label>
           </div>
           <div class="form-check form-check-inline">
             <%= f.radio_button :gender, "female", id: "female", class: "form-check-input" %>
-            <label class="form-check-label" for="female" style="color: black;">女の子</label>
+            <label class="form-check-label" for="female">女の子</label>
           </div>
-        </div>
-      </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-3 col-form-label">血統</div>
-        <div class="col-md-8">
-          <div class="form-check form-check-inline">
-            <%= f.radio_button :breed_type, "purebred", id: "purebred", class: "form-check-input", checked: true %>
-            <label class="form-check-label" for="purebred" style="color: black;">純血</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <%= f.radio_button :breed_type, "mixed_breed", id: "mixed_breed", class: "form-check-input" %>
-            <label class="form-check-label" for="mixed_breed" style="color: black;">MIX</label>
-          </div>
-        </div>
-      </div>
-      
-      <div class="row mb-3">
-        <div class="col-md-3 col-form-label">Mix犬の種類</div>
-        <div class="col-md-8">
-          <%= f.text_field :mix_breed_info, placeholder: "犬種を入力してください", class: "form-control" %>
         </div>
       </div>
         
       <div class="row mb-3">
-        <div class="col-md-3 col-form-label">紹介文</div>
-        <div class="col-md-8">
+        <div class="col-md-2 col-form-label">紹介文</div>
+        <div class="col-md-6">
           <%= f.text_area :introduction, class: "form-control", rows: 5 %>
         </div>
       </div>
   
       <div class="row">
-        <div class="col-md-8 offset-md-4">
-          <%= f.submit '変更', class: "btn btn-success" %>
+        <div class="col-md-6 offset-md-2">
+          <%= f.submit '変更する', class: "btn btn-brown" %>
         </div>
       </div>
     <% end %>

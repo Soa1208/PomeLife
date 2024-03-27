@@ -12,10 +12,11 @@ class Admin::PetsController < ApplicationController
   end
   
   def update
-    @pet = Pet.find(params[:id])
     if @pet.update(pet_params)
-      redirect_to pet_path(@pet.id)
+      flash[:notice] = "プロフィールを更新しました。"
+      redirect_to admin_pet_path(@pet)
     else
+      flash[:alert] = "プロフィールの更新に失敗しました。"
       render :edit
     end
   end
@@ -31,6 +32,6 @@ class Admin::PetsController < ApplicationController
   end
   
   def pet_params
-    params.require(:pet).permit(:customer_id, :name, :breed_type, :mix_breed_info, :gender, :age, :introduction, :image)
+    params.require(:pet).permit(:customer_id, :name, :breed_type, :mix_breed_info, :gender, :age, :introduction, :pet_image)
   end
 end

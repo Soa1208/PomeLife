@@ -1,83 +1,77 @@
 <div class="container">
   <div class="row">
-    <div class="col-4 offset-4" style="background-color: #DCC2A1; margin-top: 40px;">
-      <h4 class="text-center"><strong>ペット詳細</strong></h4>
-    </div>
+    <h4>
+      <div class="list-name">
+        <% if @pet.gender_i18n == "男の子" %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #654321;" %>くんのプロフィール
+        <% else %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #A52A2A;" %>ちゃんのプロフィール
+        <% end %>
+      </div>
+    </h4>
   </div>
-  <div class="row" style="margin-top: 20px;">
-    <div class="col-md-4 mx-auto">
-      <% if @pet.image.attached? %>
-        <%= image_tag url_for(@pet.image), size: "100x100" %>
+  
+  <div class="row">
+    <div class="col">
+      <% if @pet.customer.profile_image.attached? %>
+        <%= image_tag @pet.customer.profile_image.variant(resize_to_fill: [40, 40]).processed, size: "40x40", class: 'rounded-circle' %>
       <% else %>
-        <p>No image attached</p>
+        <%= image_tag 'no_image.jpg', size: "40x40", class: 'rounded-circle' %>
+      <% end %> 
+      <strong><%= link_to @pet.customer.display_name, customer_path(@pet.customer) %></strong>さんのポメラニアン
+      <% if @pet.customer == current_customer %>
+　　　　<%= link_to "編集する", edit_pet_path(@pet), class: "btn btn-brown btn-sm", style: "justify: left;" %>
+        <%= link_to "削除する", pet_path(@pet), class: "btn btn-danger btn-sm", method: :delete, "data-confirm" => "このポメラニアンを削除しますか？" %>
       <% end %>
     </div>
-
-    <div class="col-md-8">
-      <div class="card-body">
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">名前</h4>
+  </div>
+  
+  <div class="col-6">
+    <div class="row list-detail">
+      <div class="list-img">
+        <%= image_tag @pet.pet_image.variant(resize_to_fill: [500, 500]).processed, size: "500x500" %>
+      </div>
+      
+      <div class="col">
+        <div>
+          <div class="list-detail-info">
+            名前：
+            <% if @pet.gender_i18n == "男の子" %>
+              <%= link_to @pet.name, pet_path(@pet), style: "color: #654321;" %><span>くん</span>
+            <% else %>
+              <%= link_to @pet.name, pet_path(@pet), style: "color: #A52A2A;" %><span>ちゃん</span>
+            <% end %>
           </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.name %></p>
+          <div class="list-detail-info">
+            年齢： <%= @pet.age %>歳
           </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">紹介文</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.introduction %></p>
-          </div>
-        </div>
-   
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">年齢</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.age %></p>
+          <div class="list-detail-info">
+            性別： <%= @pet.gender_i18n %>
           </div>
         </div>
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">性別</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.gender_i18n %></p>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">血統</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @pet.breed_type_i18n %></p>
-          </div>
-        </div>
-
-        <% if @pet.breed_type == "mixed_breed" %>
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <h4 class="card-title">血種</h4>
-            </div>
-            <div class="col-md-8">
-              <% debug @pet.mix_breed_info %>
-              <p class="card-text"><%= @pet.mix_breed_info %></p>
-            </div>
-          </div>
-        <% end %>
-
-        <div class="row mt-3">
-          <div class="col-md-2 text-center">
-            <%= link_to "編集する", edit_pet_path(@pet), class: "btn btn-success" %>
-          </div>
+        <div>
+          紹介文：<%= @pet.introduction %>
         </div>
       </div>
     </div>
   </div>
+  
+  <div class="row">
+    <h4>
+      <div class="list-name">
+        <% if @pet.gender_i18n == "男の子" %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #654321;" %>くん関連の投稿
+        <% else %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #A52A2A;" %>ちゃん関連の投稿
+        <% end %>
+      </div>
+    </h4>
+  </div>
+  <div class="row">
+    <% if @pet.posts.present? %>
+      <%= render 'public/posts/index', posts: @pet.posts %>
+    <% else %>
+      <p>まだ投稿はありません。</p>
+    <% end %>
+　</div>
 </div>

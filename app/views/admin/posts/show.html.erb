@@ -1,94 +1,103 @@
 <div class="container">
   <div class="row">
-    <div class="col-4 offset-4" style="background-color: #DCC2A1; margin-top: 40px;">
-      <h4 class="text-center"><strong>投稿詳細</strong></h4>
+    <h4>投稿の詳細</h4>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <%= link_to admin_customer_path(@post.customer) do %>
+        <% if @post.customer.profile_image.attached? %>
+          <%= image_tag @post.customer.profile_image.variant(resize_to_fill: [40, 40]).processed, size: "40x40", class: 'rounded-circle' %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', size: "40x40", class: 'rounded-circle' %>
+        <% end %>
+      <% end %>
+      <strong><%= link_to @post.customer.display_name, admin_customer_path(@post.customer) %></strong>さんの投稿
+        <%= link_to "投稿を削除する", admin_post_path(@post), class: "btn btn-danger btn-sm", method: :delete, "data-confirm" => "この投稿を削除しますか？" %>
     </div>
   </div>
-  <div class="row" style="margin-top: 20px;">
-
-    <div class="col-md-8">
-      <div class="card-body">
-        
-        <div class="col-md-4 mx-auto">
-          <% if @post.image.attached? %>
-            <%= image_tag url_for(@post.image), size: "300x300" %>
-          <% else %>
-            <p>No image attached</p>
+  
+  <div class="row">
+    <div class="col-xl-6">
+      <div class="row list-detail">
+        <div class="list-img">
+          <%= link_to admin_post_path(@post) do %>
+            <%= image_tag @post.post_image.variant(resize_to_fill: [500, 500]).processed, size: "500x500" %>
           <% end %>
         </div>
         
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">投稿者</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text">
-              <% if @post.customer.image.attached? %>
-                <%= image_tag url_for(@post.customer.image), size: "80x80" %>
-              <% else %>
-                <p>No image</p>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6 offset-1">
+              <%= link_to admin_pet_path(@post.pet) do %>
+                <%= image_tag @post.pet.pet_image.variant(resize_to_fill: [30, 30]).processed, size: "30x30", class: 'rounded-circle' %>
+                <% if @post.pet.gender_i18n == "男の子" %>
+                  <%= link_to @post.pet.name, admin_pet_path(@post.pet), style: "color: #654321;" %><span>くん</span>
+                <% else %>
+                  <%= link_to @post.pet.name, admin_pet_path(@post.pet), style: "color: #A52A2A;" %><span>ちゃん</span>
+                <% end %>
               <% end %>
-              <%= @post.customer.full_name %>
-            </p>
+            </div>
+            <div class="col-4 list-detail-favorites">
+              <div class="list-favorites"><%= @post.favorites.count %> いいね</div>　
+            </div>
           </div>
         </div>
         
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">ペット</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text">
-              <% if @post.pet.image.attached? %>
-                <%= image_tag url_for(@post.pet.image), size: "80x80" %>
-              <% else %>
-                <p>No image</p>
-              <% end %>
-              <%= @post.pet.name %>
-            </p>
-          </div>
-        </div>
-        
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">タイトル</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @post.title %></p>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <h4 class="card-title">本文</h4>
-          </div>
-          <div class="col-md-8">
-            <p class="card-text"><%= @post.body %></p>
-          </div>
-        </div>
-        
-        <div>
-          <p>コメント件数：<%= @post.comments.count %></p>
-          <% @post.comments.each do |comment| %>
-            <p>
-              <% if comment.customer.present? && comment.customer.image.attached? %>
-                <%= image_tag url_for(comment.customer.image), size: "100x100" %>
-              <% else %>
-                <p>No image available</p>
-              <% end %>
-            </p>
-            <%= comment.customer.full_name %>
-            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-            <%= link_to "コメントを削除", admin_post_comment_path(comment.post, comment), method: :delete %>
-          <% end %>
-        </div>
-
-        <div class="row mt-3">
-          <div class="col-md-2 text-center">
-            <%= link_to "投稿を削除", admin_post_path(@post), method: :delete, "data-confirm" => "本当に消しますか？" %>
+        <div class="col">
+          <div class="row-12">
+            <div class="list-detail-info">
+              投稿日：<%= @post.created_at.strftime('%Y年%m月%d日') %>
+            </div>
+            <div class="list-detail-info">
+              <strong><%= @post.title %></strong>
+            </div>
+            <div class="list-detail-info">
+              　<%= @post.content %>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+      
+    <div class="col-xl-6">
+      
+      <div>コメント件数：<%= @post.comments.count %></div>
+      
+      <div class="row-12">
+      <% @post.comments.each do |comment| %>
+        <div class="row">
+          <div class="col-9">
+            <div class="row answere">
+              <div class="col-2 col-lg-2" style="margin: 5px">
+                <% if comment.customer.present? && comment.customer.profile_image.attached? %>
+                  <%= image_tag comment.customer.profile_image.variant(resize_to_fill: [60, 60]).processed, size: "60x60", class: 'rounded-circle' %>
+                <% else %>
+                  <%= image_tag 'no_image.jpg', size: "60x60", class: 'rounded-circle' %>
+                <% end %>
+              </div>
+              <div class="col-9">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6">
+                    <strong><%= link_to comment.customer.display_name, admin_customer_path(comment.customer) %></strong>さん
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <%= comment.created_at.strftime('%Y年%m月%d日') %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <%= comment.comment %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-2">
+            <%= link_to "削除", admin_post_comment_path(comment.post, comment), method: :delete, data: { confirm: "このコメントを削除しますか？" }, class: "btn btn-danger btn-sm", style: "margin-top: 25px" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

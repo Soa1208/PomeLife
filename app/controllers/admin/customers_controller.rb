@@ -12,8 +12,13 @@ class Admin::CustomersController < ApplicationController
   end
   
   def update
-    @customer.update(customer_params)
-    redirect_to admin_customer_path(@customer)
+    if @customer.update(customer_params)
+      flash[:notice] = "プロフィールを更新しました。"
+      redirect_to admin_customer_path(@customer)
+    else
+      flash[:alert] = "プロフィールの更新に失敗しました。"
+      render :edit
+    end
   end
   
   private
@@ -22,6 +27,6 @@ class Admin::CustomersController < ApplicationController
   end
   
   def customer_params
-    params.require(:customer).permit(:last_name, :first_name, :first_name_kana, :last_name_kana, :display_name, :gender, :email, :encrypted_password, :postal_code, :address, :telephone_number, :introduction, :is_active, :customer_image)
+    params.require(:customer).permit(:last_name, :first_name, :first_name_kana, :last_name_kana, :display_name, :email, :encrypted_password, :postal_code, :address, :telephone_number, :introduction, :is_active, :profile_image)
   end
 end

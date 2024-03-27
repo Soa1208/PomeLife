@@ -2,10 +2,14 @@ class Public::AnswersController < ApplicationController
   
   def create
     question = Question.find(params[:question_id])
-    answer = current_customer.answers.new(answer_params)
-    answer.question_id = question.id
-    answer.save
-    redirect_to question_path(question)
+    if current_customer
+      answer = current_customer.answers.new(answer_params)
+      answer.question_id = question.id
+      answer.save
+      redirect_to question_path(question)
+    else
+      redirect_to customer_session_path
+    end
   end
   
   def destroy

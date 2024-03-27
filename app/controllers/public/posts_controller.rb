@@ -10,7 +10,6 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to post_path(@post.id)
     else
-      logger.error @post.errors.full_messages.join(", ")
       render :new
     end
   end
@@ -46,6 +45,6 @@ class Public::PostsController < ApplicationController
   end
   
   def post_params
-    params.require(:post).permit(:customer_id, :pet_id, :title, :body, :image)
+    params.require(:post).permit(:customer_id, :pet_id, :title, :content, :post_image)
   end
 end

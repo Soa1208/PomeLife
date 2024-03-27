@@ -34,7 +34,16 @@ Rails.application.routes.draw do
     end
     resources :questions do
       resources :answers, only: [:create, :destroy]
+      member do
+        patch 'resolve', to: 'questions#resolve'
+      end
     end
   end
   
+  devise_scope :customer do
+    post "customers/guest_sign_in", to: "customers/sessions#guest_sign_in"
+  end
+  
+  get '/search', to: 'searches#search', as: 'search'
+  get 'tagsearch', to: 'tagsearches#tagsearch', as: 'tagsearch'
 end

@@ -100,10 +100,11 @@ ActiveRecord::Schema.define(version: 2024_03_10_064156) do
   create_table "pets", force: :cascade do |t|
     t.integer "customer_id"
     t.string "name", null: false
-    t.string "age", null: false
+    t.date "birthday", null: false
     t.integer "gender", default: 0
     t.integer "breed_type", default: 0
-    t.string "mix_breed_info"
+    t.string "mix_breed_info1"
+    t.string "mix_breed_info2"
     t.string "introduction"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -113,7 +114,7 @@ ActiveRecord::Schema.define(version: 2024_03_10_064156) do
     t.integer "customer_id"
     t.integer "pet_id"
     t.string "title"
-    t.string "body"
+    t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -121,7 +122,9 @@ ActiveRecord::Schema.define(version: 2024_03_10_064156) do
   create_table "questions", force: :cascade do |t|
     t.integer "customer_id"
     t.string "title", null: false
-    t.string "body", null: false
+    t.string "content", null: false
+    t.boolean "is_active", default: false, null: false
+    t.string "category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
