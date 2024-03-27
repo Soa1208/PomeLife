@@ -1,2 +1,51 @@
-<h1>Public::Customers#show</h1>
-<p>Find me in app/views/public/customers/show.html.erb</p>
+<div class="container">
+	<%= notice %>
+	<div class="row">
+		<div class="col" style="margin-top: 10px;">
+			<% if @customer.profile_image.attached? %>
+        <%= image_tag url_for(@customer.profile_image.variant(resize_to_fill: [150, 150])), size: "150x150", class: 'rounded-circle' %>
+      <% else %>
+        <%= image_tag 'no_image.jpg', size: "150x150", class: 'rounded-circle' %>
+      <% end %>
+		</div>
+	</div>
+	<div class="row">
+		<strong><%= @customer.display_name %></strong>
+	</div>
+	<div class="row">
+		　<%= @customer.introduction %>
+	</div>
+
+  <div class="row">
+    <h4><%= @customer.display_name %>さんのポメラニアン</h4>
+  </div>
+  <div class="row">
+    <% if @customer.pets.present? %>
+      <%= render 'public/pets/index', pets: @customer.pets %>
+    <% else %>
+      <p>ペット情報はありません。</p>
+    <% end %>
+  </div>
+  
+  <div class="row">
+    <h4><%= @customer.display_name %>さんの投稿</h4>
+  </div>
+  <div class="row">
+    <% if @customer.posts.present? %>
+      <%= render 'public/posts/index', posts: @customer.posts %>
+    <% else %>
+      <p>投稿はありません。</p>
+    <% end %>
+  </div>
+  
+  <div class="row">
+    <h4><%= @customer.display_name %>さんの相談</h4>
+  </div>
+  <div class="row">
+    <% if @customer.questions.present? %>
+      <%= render 'public/questions/index', questions: @customer.questions %>
+    <% else %>
+      <p>相談はありません。</p>
+    <% end %>
+   </div>
+</div>

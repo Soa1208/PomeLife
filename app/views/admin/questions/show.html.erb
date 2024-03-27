@@ -1,2 +1,95 @@
-<h1>Admin::Questions#show</h1>
-<p>Find me in app/views/admin/questions/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h4>相談の詳細</h4>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <%= link_to admin_customer_path(@question.customer) do %>
+        <% if @question.customer.profile_image.attached? %>
+          <%= image_tag @question.customer.profile_image.variant(resize_to_fill: [40, 40]).processed, size: "40x40", class: 'rounded-circle' %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', size: "40x40", class: 'rounded-circle' %>
+        <% end %>
+      <% end %>
+      <strong><%= link_to @question.customer.display_name, admin_customer_path(@question.customer) %></strong>さんの相談
+      <%= link_to "相談を削除する", admin_question_path(@question), class: "btn btn-danger btn-sm", method: :delete, "data-confirm" => "この投稿を削除しますか？" %>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-8 question">
+      <div class="question-solution">
+        <% if @question.is_active %>
+          <span style="color: #F9803F; font-weight: bold;">😄解決済</span>
+        <% else %>
+          <span style="color: red; font-weight: bold;">🥺未解決</span>
+        <% end %>
+      </div>
+      <div class="row question-answer">
+        <div class="col-lg-5">
+          <%= "回答件数：#{@question.answers.count} 件" %>
+        </div>
+        <div class="col-lg-7">
+          ＃<%= @question.category %>
+        </div>
+      </div>
+      <div class="question-title">
+        ・<%= @question.title %>
+      </div>
+      <div class="question-content">
+        　<%= @question.content %>
+      </div>
+    </div>
+    <% if @question.question_image.present? %>
+      <div class="col-sm-4">
+        <%= image_tag @question.question_image.variant(resize_to_fill: [250, 250]).processed, size: "250x250" %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      相談日：<%= @question.created_at.strftime('%Y年%m月%d日') %>
+    </div>
+  </div>
+  
+  <div class="row-12">
+    <% if @question.answers.empty? %>
+      まだ回答がありません。
+    <% end %>
+  </div>
+  <% @question.answers.each do |answer| %>
+    <div class="row">
+      <div class="col-9">
+        <div class="row answere">
+          <div class="col-2 col-lg-1" style="margin: 5px">
+            <% if answer.customer.present? && answer.customer.profile_image.attached? %>
+              <%= image_tag answer.customer.profile_image.variant(resize_to_fill: [50, 50]).processed, size: "50x50", class: 'rounded-circle' %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', size: "50x50", class: 'rounded-circle' %>
+            <% end %>
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-lg-8 col-md-6">
+                <strong><%= link_to answer.customer.display_name, admin_customer_path(answer.customer) %></strong>さん
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <%= answer.created_at.strftime('%Y年%m月%d日') %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <%= answer.answer %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+        <%= link_to "削除", admin_question_answer_path(answer.question, answer), method: :delete, data: { confirm: "この回答を削除しますか？" }, class: "btn btn-danger", style: "margin-top: 25px" %>
+      </div>
+    </div>
+  <% end %>
+</div>

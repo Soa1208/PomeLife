@@ -1,0 +1,6 @@
+ja:
+  devise:
+    sessions:
+      customer:
+        signed_in: 'ログインしました。'
+      signed_in: '正常にサインインしました。'

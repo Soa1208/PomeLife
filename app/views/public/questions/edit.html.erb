@@ -1,2 +1,45 @@
-<h1>Public::Questions#edit</h1>
-<p>Find me in app/views/public/questions/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h4>相談の編集</h4>
+  </div>
+  
+  <div class="card-body">
+    <%= form_with model: @question, local: true, method: :patch do |f| %>
+      <div class="row mb-3">
+        <div class="col-md-2">相談画像</div>
+        <div class="col-md-6">
+          <%= f.file_field :quesiton_image, accept: "image/*" %>
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col-md-2 col-form-label">相談タイトル</div>
+        <div class="col-md-6">
+          <%= f.text_field :title, placeholder: "title", class: "form-control" %>
+        </div>
+      </div>
+  
+      <div class="row mb-3">
+        <div class="col-md-2 col-form-label">相談本文</div>
+        <div class="col-md-6">
+          <%= f.text_area :content, placeholder: "body", class: "form-control" %>
+        </div>
+      </div>
+      
+      <div class="row mb-3">
+        <div class="col-md-2 col-form-label">相談タグ</div>
+        <div class="col-md-6">
+          <%= f.text_field :category, class: 'form-control', rows: 5 %>
+        </div>
+      </div>
+      
+      <%= f.hidden_field :customer_id, value: current_customer.id %>
+
+      <div class="row">
+        <div class="col-md-6 offset-md-2">
+          <%= f.submit '変更を保存', class: "btn btn-brown" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

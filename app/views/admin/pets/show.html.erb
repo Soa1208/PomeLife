@@ -1,2 +1,49 @@
-<h1>Admin::Pets#show</h1>
-<p>Find me in app/views/admin/pets/show.html.erb</p>
+<div class="container">
+  <%= notice %>
+  <%= alert %>
+  <div class="row">
+    <h4>
+      <div class="list-name">
+        <% if @pet.gender_i18n == "男の子" %>
+          <%= link_to @pet.name, admin_pet_path(@pet), style: "color: #654321;" %>くんのプロフィール
+        <% else %>
+          <%= link_to @pet.name, admin_pet_path(@pet), style: "color: #A52A2A;" %>ちゃんのプロフィール
+        <% end %>
+      </div>
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-3 mb-2">
+      <%= link_to "削除", admin_pet_path(@pet), class: "btn btn-danger", method: :delete, "data-confirm" => "このポメラニアンを削除しますか？" %>
+    </div>
+    <div class="col-3 mb-2">
+      <%= link_to "編集する", edit_admin_pet_path(@pet), class: "btn btn-brown" %>
+    </div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">ID</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.id %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">名前</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.name %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">年齢</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.age %>歳</div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">性別</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.gender_i18n %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">プロフィール画像</div>
+    <div class="col-8 col-sm-8 admin-list-content">
+      <%= image_tag url_for(@pet.pet_image.variant(resize_to_fill: [150, 150])), size: "150x150", class: 'rounded-circle' %>
+    </div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">自己紹介</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.introduction %></div>
+  </div>
+</div>

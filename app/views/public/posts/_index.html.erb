@@ -1,0 +1,37 @@
+<% @posts.each do |post| %>
+  <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="list">
+      <div class="list-img">
+        <%= link_to post_path(post) do %>
+          <%= image_tag post.post_image.variant(resize_to_fill: [238, 238]).processed, size: "238x238" %>
+        <% end %>
+      </div>
+      <div class="list-owner">
+        <%= link_to pet_path(post.pet) do %>
+          <%= image_tag post.pet.pet_image.variant(resize_to_fill: [30, 30]).processed, size: "30x30", class: 'rounded-circle' %>
+          <% if post.pet.gender_i18n == "男の子" %>
+            <%= link_to post.pet.name, pet_path(post.pet), style: "color: #654321;" %><span>くん</span>
+          <% else %>
+            <%= link_to post.pet.name, pet_path(post.pet), style: "color: #A52A2A;" %><span>ちゃん</span>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="list-title">
+        <% truncated_title = post.title.mb_chars.length > 10 ? post.title.mb_chars[0..9] + '...' : post.title %>
+        <%= link_to truncated_title, post_path(post), style: "color: black;" %>
+      </div>
+      <div class="list-reactions">
+        <% if post.favorited_by?(current_customer) %>
+          <%= link_to post_favorite_path(post, post_id: post.id), method: :delete do %>
+            <span class="list-favorites">♥<%= post.favorites.count %> いいね</span>　
+          <% end %>
+        <% else %>
+          <%= link_to post_favorites_path(post), method: :post do %>
+            <span class="list-favorites">♡<%= post.favorites.count %> いいね</span>　
+          <% end %>
+        <% end %>
+        <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,2 +1,75 @@
-<h1>Admin::Customers#show</h1>
-<p>Find me in app/views/admin/customers/show.html.erb</p>
+<div class="container">
+  <%= notice %>
+  <%= alert %>
+  <div class="row">
+    <h4><%= @customer.full_name %>さんのプロフィール</h4>
+  </div>
+  <div class="row">
+    <% if @customer.is_active %>
+      <div class="col-3 mb-2">
+        <%= form_with model: @customer, url: admin_customer_path(@customer), method: :patch, local: true do |form| %>
+          <%= form.hidden_field :is_active, value: false %>
+          <%= form.submit "BANする", class: "btn btn-danger", data: { confirm: "このアカウントをBANしますか？" } %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-3 mb-2">
+        <%= form_with model: @customer, url: admin_customer_path(@customer), method: :patch, local: true do |form| %>
+          <%= form.hidden_field :is_active, value: true %>
+          <%= form.submit "BANを解除", class: "btn btn-success", data: { confirm: "このアカウントのBANを解除しますか？" } %>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="col-4 mb-2">
+      <%= link_to "編集する", edit_admin_customer_path, class: "btn btn-brown" %>
+    </div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">ステータス</div>
+    <div class="col-8 col-sm-8 admin-list-content" style="<%= @customer.is_active ? 'color: green;' : 'color: red;' %>"><%= @customer.customer_status %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">ID</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.id %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">氏名</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.full_name %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">フリガナ</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.full_name_kana %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">メールアドレス</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.email %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">郵便番号</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.postal_code %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">住所</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.address %></div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">電話番号</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.telephone_number %></div>
+  </div>
+  <% if @customer.profile_image.present? %>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">プロフィール画像</div>
+    <div class="col-8 col-sm-8 admin-list-content">
+      <%= image_tag url_for(@customer.profile_image.variant(resize_to_fill: [150, 150])), size: "150x150", class: 'rounded-circle' %>
+    </div>
+  </div>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">表示名</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.display_name %></div>
+  </div>
+  <% end %>
+  <div class="row admin-list-item">
+    <div class="col-4 col-sm-4 admin-list-title">自己紹介</div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.introduction %></div>
+  </div>
+</div>

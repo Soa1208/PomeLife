@@ -1,2 +1,77 @@
-<h1>Public::Pets#show</h1>
-<p>Find me in app/views/public/pets/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h4>
+      <div class="list-name">
+        <% if @pet.gender_i18n == "男の子" %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #654321;" %>くんのプロフィール
+        <% else %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #A52A2A;" %>ちゃんのプロフィール
+        <% end %>
+      </div>
+    </h4>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <% if @pet.customer.profile_image.attached? %>
+        <%= image_tag @pet.customer.profile_image.variant(resize_to_fill: [40, 40]).processed, size: "40x40", class: 'rounded-circle' %>
+      <% else %>
+        <%= image_tag 'no_image.jpg', size: "40x40", class: 'rounded-circle' %>
+      <% end %> 
+      <strong><%= link_to @pet.customer.display_name, customer_path(@pet.customer) %></strong>さんのポメラニアン
+      <% if @pet.customer == current_customer %>
+　　　　<%= link_to "編集する", edit_pet_path(@pet), class: "btn btn-brown btn-sm", style: "justify: left;" %>
+        <%= link_to "削除する", pet_path(@pet), class: "btn btn-danger btn-sm", method: :delete, "data-confirm" => "このポメラニアンを削除しますか？" %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="col-6">
+    <div class="row list-detail">
+      <div class="list-img">
+        <%= image_tag @pet.pet_image.variant(resize_to_fill: [500, 500]).processed, size: "500x500" %>
+      </div>
+      
+      <div class="col">
+        <div>
+          <div class="list-detail-info">
+            名前：
+            <% if @pet.gender_i18n == "男の子" %>
+              <%= link_to @pet.name, pet_path(@pet), style: "color: #654321;" %><span>くん</span>
+            <% else %>
+              <%= link_to @pet.name, pet_path(@pet), style: "color: #A52A2A;" %><span>ちゃん</span>
+            <% end %>
+          </div>
+          <div class="list-detail-info">
+            年齢： <%= @pet.age %>歳
+          </div>
+          <div class="list-detail-info">
+            性別： <%= @pet.gender_i18n %>
+          </div>
+        </div>
+        <div>
+          紹介文：<%= @pet.introduction %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <h4>
+      <div class="list-name">
+        <% if @pet.gender_i18n == "男の子" %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #654321;" %>くん関連の投稿
+        <% else %>
+          <%= link_to @pet.name, pet_path(@pet), style: "color: #A52A2A;" %>ちゃん関連の投稿
+        <% end %>
+      </div>
+    </h4>
+  </div>
+  <div class="row">
+    <% if @pet.posts.present? %>
+      <%= render 'public/posts/index', posts: @pet.posts %>
+    <% else %>
+      <p>まだ投稿はありません。</p>
+    <% end %>
+　</div>
+</div>

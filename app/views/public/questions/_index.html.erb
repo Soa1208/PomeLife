@@ -1,0 +1,39 @@
+<% @questions.each do |question| %>
+  <div class="col-12">
+    <div class="question">
+      <div class="question-solution">
+        <% if question.is_active %>
+          <span style="color: #F9803F; font-weight: bold;">😄解決済</span>
+        <% else %>
+          <span style="color: red; font-weight: bold;">🥺未解決</span>
+        <% end %>
+      </div>
+      <div class="question-answer">
+        <%= link_to "回答件数：#{question.answers.count} 件", question_path(question.id) %>
+        　＃<%= question.category %>
+      </div>
+      <div class="question-title">
+        <% truncated_title = question.title.mb_chars.length > 20 ? question.title.mb_chars[0..19] + '...' : question.title %>
+        ・<%= link_to question.title, question_path(question) %>
+      </div>
+      <div class="question-owner">
+        質問者
+        <%= link_to customer_path(question.customer) do %>
+          <% if question.customer.profile_image.attached? %>
+            <%= image_tag question.customer.profile_image.variant(resize_to_fill: [25, 25]).processed, size: "25x25", class: 'rounded-circle' %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "25x25", class: 'rounded-circle' %>
+          <% end %>
+        <% end %>
+        <%= link_to question.customer.display_name, customer_path(question.customer) %>さん
+      </div>
+      <div class="question-content">
+        <% truncated_content = question.content.mb_chars.length > 55 ? question.content.mb_chars[0..54] + '...' : question.content %>
+      　<%= truncated_content %>
+      </div>
+      <div class="question-date">
+        <%= question.created_at.strftime('%Y-%m-%d') %>
+      </div>
+    </div>
+  </div>
+<% end %>

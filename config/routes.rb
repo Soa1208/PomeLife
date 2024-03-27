@@ -7,12 +7,11 @@ Rails.application.routes.draw do
   
   namespace :admin do
     resources :customers, only: [:index, :show, :edit, :update]
-    resources :posts, except: [:destroy]
-    resources :pets, only: [:index, :show, :edit, :update]
-    resources :posts, only: [:index, :show, :update] do
+    resources :pets, only: [:index, :show, :edit, :update, :destroy]
+    resources :posts, only: [:index, :show, :update, :destroy] do
       resources :comments, only: [:destroy]
     end
-    resources :questions, only: [:index, :show, :edit, :update] do
+    resources :questions, only: [:index, :show, :edit, :update, :destroy] do
       resources :answers, only: [:destroy]
     end
   end
@@ -25,18 +24,26 @@ Rails.application.routes.draw do
   scope module: :public do
     root 'homes#top'
     get 'homes/about' => 'homes/about', as: 'about'
-    get 'customers/mypage' => 'customers#show', as: 'mypage'
-    get 'customers/information/edit' => 'customers#edit', as: 'edit_information'
-    patch 'customers/information' => 'customers#update', as: 'update_information'
-    
-    resources :pets, only: [:index, :create, :show, :edit, :update, :destroy]
-    resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
+    get 'customers/:id' =>'customers#show', as: 'customer'
+    get 'customers/:id/edit' => 'customers#edit', as: 'edit_customer'
+    patch 'customers/:id' => 'customers#update' 
+    resources :pets
+    resources :posts do
       resources :favorites, only: [:index, :create, :destroy]
-      resource :comments, only: [:create, :destroy]
+      resources :comments, only: [:create, :destroy]
     end
-    resources :questions, only: [:index, :create, :show, :edit, :update, :destroy] do
-      resource :answers, only: [:create, :destroy]
+    resources :questions do
+      resources :answers, only: [:create, :destroy]
+      member do
+        patch 'resolve', to: 'questions#resolve'
+      end
     end
   end
   
+  devise_scope :customer do
+    post "customers/guest_sign_in", to: "customers/sessions#guest_sign_in"
+  end
+  
+  get '/search', to: 'searches#search', as: 'search'
+  get 'tagsearch', to: 'tagsearches#tagsearch', as: 'tagsearch'
 end

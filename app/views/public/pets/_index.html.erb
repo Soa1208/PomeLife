@@ -1,0 +1,32 @@
+<% @pets.each do |pet| %>
+  <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="list">
+      <div class="list-img">
+        <%= link_to pet_path(pet) do %>
+          <%= image_tag pet.pet_image.variant(resize_to_fill: [238, 238]).processed, size: "238x238" %>
+        <% end %>
+      </div>
+      <div class="list-name">
+        <% if pet.gender_i18n == "男の子" %>
+          <%= link_to pet.name, pet_path(pet), style: "color: #654321;" %><span>くん</span>
+        <% else %>
+          <%= link_to pet.name, pet_path(pet), style: "color: #A52A2A;" %><span>ちゃん</span>
+        <% end %>
+      </div>
+      <div class="list-feature">
+        <%= pet.age %>歳・<%= pet.gender_i18n %>
+      </div>
+      <div class="list-owner">
+        飼い主：
+        <%= link_to customer_path(pet.customer) do %>
+          <% if pet.customer.profile_image.attached? %>
+            <%= image_tag pet.customer.profile_image.variant(resize_to_fill: [25, 25]).processed, size: "25x25", class: 'rounded-circle' %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "25x25", class: 'rounded-circle' %>
+          <% end %>
+        <% end %>
+        <%= link_to pet.customer.display_name, customer_path(pet.customer) %>さん
+      </div>
+    </div>
+  </div>
+<% end %>

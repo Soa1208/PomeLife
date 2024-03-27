@@ -1,2 +1,18 @@
-<h1>Public::Questions#index</h1>
-<p>Find me in app/views/public/questions/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h4>すべての相談一覧</h4>
+    <div class="col-lg-3 col-md-2 col-sm-5 col-4 title-beside">
+      <% if customer_signed_in? %>
+        <%= link_to "相談する", new_question_path, class: "btn btn-brown btn-sm" %>
+      <% else %>
+        <%= link_to "相談する", new_customer_session_path, class: "btn btn-brown btn-sm" %>
+      <% end %>
+    </div>
+    <div class="col-lg-4 col-md-4 tagsearches-form">
+      <%= render 'tagsearches/form' %>
+    </div>
+  </div>
+  <div class="row">
+    <%= render 'index', questions: @questions %>
+  </div>
+</div>
