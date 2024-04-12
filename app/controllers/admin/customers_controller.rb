@@ -4,6 +4,7 @@ class Admin::CustomersController < ApplicationController
 
   def index
     @customers = Customer.all
+    @customers = Customer.all.order(created_at: :desc)
   end
 
   def show

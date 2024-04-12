@@ -4,6 +4,7 @@ class Admin::PetsController < ApplicationController
 
   def index
     @pets = Pet.all
+    @pets = Pet.all.order(created_at: :desc)
   end
 
   def show
