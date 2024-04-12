@@ -10,14 +10,14 @@
       </div>
     </h4>
   </div>
-  
+
   <div class="row">
     <div class="col">
       <% if @pet.customer.profile_image.attached? %>
         <%= image_tag @pet.customer.profile_image.variant(resize_to_fill: [40, 40]).processed, size: "40x40", class: 'rounded-circle' %>
       <% else %>
         <%= image_tag 'no_image.jpg', size: "40x40", class: 'rounded-circle' %>
-      <% end %> 
+      <% end %>
       <strong><%= link_to @pet.customer.display_name, customer_path(@pet.customer) %></strong>さんのポメラニアン
       <% if @pet.customer == current_customer %>
 　　　　<%= link_to "編集する", edit_pet_path(@pet), class: "btn btn-brown btn-sm", style: "justify: left;" %>
@@ -25,13 +25,13 @@
       <% end %>
     </div>
   </div>
-  
+
   <div class="col-6">
     <div class="row list-detail">
       <div class="list-img">
         <%= image_tag @pet.pet_image.variant(resize_to_fill: [500, 500]).processed, size: "500x500" %>
       </div>
-      
+
       <div class="col">
         <div>
           <div class="list-detail-info">
@@ -50,12 +50,12 @@
           </div>
         </div>
         <div>
-          紹介文：<%= @pet.introduction %>
+          紹介文：<%= simple_format(@pet.introduction)%>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div class="row">
     <h4>
       <div class="list-name">

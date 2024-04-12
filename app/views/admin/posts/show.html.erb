@@ -2,7 +2,7 @@
   <div class="row">
     <h4>投稿の詳細</h4>
   </div>
-  
+
   <div class="row">
     <div class="col">
       <%= link_to admin_customer_path(@post.customer) do %>
@@ -16,7 +16,7 @@
         <%= link_to "投稿を削除する", admin_post_path(@post), class: "btn btn-danger btn-sm", method: :delete, "data-confirm" => "この投稿を削除しますか？" %>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="col-xl-6">
       <div class="row list-detail">
@@ -25,7 +25,7 @@
             <%= image_tag @post.post_image.variant(resize_to_fill: [500, 500]).processed, size: "500x500" %>
           <% end %>
         </div>
-        
+
         <div class="col-12">
           <div class="row">
             <div class="col-6 offset-1">
@@ -39,11 +39,11 @@
               <% end %>
             </div>
             <div class="col-4 list-detail-favorites">
-              <div class="list-favorites"><%= @post.favorites.count %> いいね</div>　
+              <div class="list-favorites"><%= @post.favorites.count %> いいね</div>
             </div>
           </div>
         </div>
-        
+
         <div class="col">
           <div class="row-12">
             <div class="list-detail-info">
@@ -53,17 +53,17 @@
               <strong><%= @post.title %></strong>
             </div>
             <div class="list-detail-info">
-              　<%= @post.content %>
+              <%= simple_format(@post.content)%>
             </div>
           </div>
         </div>
       </div>
     </div>
-      
+
     <div class="col-xl-6">
-      
+
       <div>コメント件数：<%= @post.comments.count %></div>
-      
+
       <div class="row-12">
       <% @post.comments.each do |comment| %>
         <div class="row">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="row">
                   <div class="col-12">
-                    <%= comment.comment %>
+                    <%= simple_format(comment.comment)%>
                   </div>
                 </div>
               </div>

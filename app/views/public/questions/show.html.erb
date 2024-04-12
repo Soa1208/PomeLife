@@ -2,7 +2,7 @@
   <div class="row">
     <h4>相談の詳細</h4>
   </div>
-  
+
   <div class="row">
     <div class="col">
       <%= link_to customer_path(@question.customer) do %>
@@ -20,10 +20,10 @@
           <%= link_to '解決済みにする', resolve_question_path(@question), method: :patch, class: "btn btn-success btn-sm", data: { confirm: "この質問を解決済みとしてマークしますか？" } %>
         <% end %>
       <% end %>
-      
+
     </div>
   </div>
-  
+
   <div class="row">
     <div class="col-sm-8 question">
       <div class="question-solution">
@@ -45,7 +45,7 @@
         ・<%= @question.title %>
       </div>
       <div class="question-content">
-        　<%= @question.content %>
+        <%= simple_format(@question.content)%>
       </div>
     </div>
     <% if @question.question_image.present? %>
@@ -54,20 +54,20 @@
       </div>
     <% end %>
   </div>
-  
+
   <div class="row">
     <div class="col">
       相談日：<%= @question.created_at.strftime('%Y年%m月%d日') %>
     </div>
   </div>
-  
+
   <div class="row-12">
     <%= form_with model: [@question, @answer] do |f| %>
       <%= f.text_area :answer, class: 'comment-form', rows: '3', placeholder: "回答を入力してください。※半角のみ不可" %>
       <%= f.submit "回答", class: "btn btn-brown", style: "margin: -50px 0 0 20px;" %>
     <% end %>
   </div>
-  
+
   <div class="row-12">
     <% if @question.answers.empty? %>
       まだ回答がありません。
@@ -95,7 +95,7 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <%= answer.answer %>
+                <%= simple_format(answer.answer)%>
               </div>
             </div>
           </div>

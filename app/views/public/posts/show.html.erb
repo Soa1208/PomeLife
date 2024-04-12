@@ -2,7 +2,7 @@
   <div class="row">
     <h4>投稿の詳細</h4>
   </div>
-  
+
   <div class="row">
     <div class="col">
       <%= link_to customer_path(@post.customer) do %>
@@ -10,7 +10,7 @@
           <%= image_tag @post.customer.profile_image.variant(resize_to_fill: [40, 40]).processed, size: "40x40", class: 'rounded-circle' %>
         <% else %>
           <%= image_tag 'no_image.jpg', size: "40x40", class: 'rounded-circle' %>
-        <% end %> 
+        <% end %>
         <strong><%= link_to @post.customer.display_name, customer_path(@post.customer) %></strong>さんの投稿
         <% if @post.customer == current_customer %>
     　　  　<%= link_to "編集する", edit_post_path(@post), class: "btn btn-brown btn-sm" %>
@@ -19,7 +19,7 @@
       <% end %>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="col-xl-6">
       <div class="row list-detail">
@@ -28,7 +28,7 @@
             <%= image_tag @post.post_image.variant(resize_to_fill: [500, 500]).processed, size: "500x500" %>
           <% end %>
         </div>
-        
+
         <div class="col-12">
           <div class="row">
             <div class="col-6 offset-1">
@@ -44,17 +44,17 @@
             <div class="col-4 list-detail-favorites">
               <% if @post.favorited_by?(current_customer) %>
                 <%= link_to post_favorite_path(@post), method: :delete do %>
-                  <span class="list-favorites">♥<%= @post.favorites.count %> いいね</span>　
+                  <span class="list-favorites">♥<%= @post.favorites.count %> いいね</span>
                 <% end %>
               <% else %>
                 <%= link_to post_favorites_path(@post), method: :post do %>
-                  <span class="list-favorites">♡<%= @post.favorites.count %> いいね</span>　
+                  <span class="list-favorites">♡<%= @post.favorites.count %> いいね</span>
                 <% end %>
               <% end %>
             </div>
           </div>
         </div>
-        
+
         <div class="col">
           <div class="row-12">
             <div class="list-detail-info">
@@ -64,13 +64,13 @@
               <strong><%= @post.title %></strong>
             </div>
             <div class="list-detail-info">
-              　<%= @post.content %>
+              <%= simple_format(@post.content)%>
             </div>
           </div>
         </div>
       </div>
     </div>
-      
+
     <div class="col-xl-6">
       <div class="row-12">
         <%= form_with model: [@post, @comment] do |f| %>
@@ -78,9 +78,9 @@
           <%= f.submit "送信", class: "btn btn-brown", style: "margin: -50px 0 0 20px;" %>
         <% end %>
       </div>
-      
+
       <div>コメント件数：<%= @post.comments.count %></div>
-      
+
       <div class="row-12">
       <% @post.comments.each do |comment| %>
         <div class="row">
@@ -104,7 +104,7 @@
                 </div>
                 <div class="row">
                   <div class="col-12">
-                    <%= comment.comment %>
+                    <%= simple_format(comment.comment)%>
                   </div>
                 </div>
               </div>

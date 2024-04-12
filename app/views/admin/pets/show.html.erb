@@ -44,6 +44,6 @@
   </div>
   <div class="row admin-list-item">
     <div class="col-4 col-sm-4 admin-list-title">自己紹介</div>
-    <div class="col-8 col-sm-8 admin-list-content"><%= @pet.introduction %></div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= simple_format(@pet.introduction)%></div>
   </div>
 </div>

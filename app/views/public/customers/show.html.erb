@@ -13,7 +13,7 @@
 		<strong><%= @customer.display_name %></strong>
 	</div>
 	<div class="row">
-		　<%= @customer.introduction %>
+		<%= simple_format(@customer.introduction)%>
 	</div>
 
   <div class="row">
@@ -26,7 +26,7 @@
       <p>ペット情報はありません。</p>
     <% end %>
   </div>
-  
+
   <div class="row">
     <h4><%= @customer.display_name %>さんの投稿</h4>
   </div>
@@ -37,7 +37,7 @@
       <p>投稿はありません。</p>
     <% end %>
   </div>
-  
+
   <div class="row">
     <h4><%= @customer.display_name %>さんの相談</h4>
   </div>

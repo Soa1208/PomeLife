@@ -70,6 +70,6 @@
   <% end %>
   <div class="row admin-list-item">
     <div class="col-4 col-sm-4 admin-list-title">自己紹介</div>
-    <div class="col-8 col-sm-8 admin-list-content"><%= @customer.introduction %></div>
+    <div class="col-8 col-sm-8 admin-list-content"><%= simple_format(@customer.introduction)%></div>
   </div>
 </div>
